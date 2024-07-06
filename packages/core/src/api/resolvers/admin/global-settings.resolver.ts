@@ -49,7 +49,6 @@ export class GlobalSettingsResolver {
     ) {}
 
     @Query()
-    @Allow(Permission.Authenticated)
     async globalSettings(@Ctx() ctx: RequestContext) {
         return this.globalSettingsService.getSettings(ctx);
     }
@@ -134,8 +133,8 @@ export class GlobalSettingsResolver {
                         c.requiresPermission = Array.isArray(requiresPermission)
                             ? requiresPermission
                             : !!requiresPermission
-                            ? [requiresPermission]
-                            : [];
+                              ? [requiresPermission]
+                              : [];
                         return c;
                     })
                     .map(c => {
