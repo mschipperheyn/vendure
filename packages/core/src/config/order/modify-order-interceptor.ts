@@ -1,19 +1,8 @@
 import { ModifyOrderInput } from '@vendure/common/lib/generated-types';
+
 import { RequestContext } from '../../api/common/request-context';
 import { InjectableStrategy } from '../../common/types/injectable-strategy';
-import { CustomOrderLineFields, Order, OrderLine, ProductVariant } from '../../entity/index';
-
-export interface WillAddItemToOrderInput {
-    productVariant: ProductVariant;
-    quantity: number;
-    customFields?: CustomOrderLineFields;
-}
-
-export interface WillAdjustOrderLineInput {
-    orderLine: OrderLine;
-    quantity: number;
-    customFields?: CustomOrderLineFields;
-}
+import { Order } from '../../entity/order/order.entity'
 
 /**
  * @description
@@ -151,11 +140,11 @@ export interface WillAdjustOrderLineInput {
  *
  * }
  *
- * // This plugin adds paymentMethod related surcharges. 
+ * // This plugin adds paymentMethod related surcharges.
  * // It adds two new custom fields to PaymentMethod:
  * // - surcharge
  * // - surchargeType
- * // 
+ * //
  * // It also adds a custom field to Order that represents the selected payment method:
  * // - paymentMethodCode
  * //
