@@ -105,3 +105,12 @@ type OrderInterceptorError implements ErrorResult {
     message: String!
     interceptorError: String!
 }
+
+"""
+Returned when a modify order operation is rejected by an ModifyOrderInterceptor method.
+"""
+type ModifyOrderInterceptorError implements ErrorResult {
+    errorCode: ErrorCode!
+    message: String!
+    interceptorError: String!
+}

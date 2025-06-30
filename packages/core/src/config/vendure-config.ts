@@ -63,6 +63,7 @@ import { HealthCheckStrategy } from './system/health-check-strategy';
 import { InstrumentationStrategy } from './system/instrumentation-strategy';
 import { TaxLineCalculationStrategy } from './tax/tax-line-calculation-strategy';
 import { TaxZoneStrategy } from './tax/tax-zone-strategy';
+import { ModifyOrderInterceptor } from './order/modify-order-interceptor';
 
 /**
  * @description
@@ -640,6 +641,14 @@ export interface OrderOptions {
      * @default []
      */
     orderInterceptors?: OrderInterceptor[];
+    /**
+     * @description
+     * An array of {@link OrderInterceptor}s which can be used to modify the behavior of the Order process.
+     *
+     * @since 3.1.0
+     * @default []
+     */
+    modifyOrderInterceptors?: ModifyOrderInterceptor[];
 }
 
 /**

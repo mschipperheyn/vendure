@@ -378,6 +378,15 @@ export class OrderModifier {
         order: Order,
     ): Promise<JustErrorResults<ModifyOrderResult> | { order: Order; modification: OrderModification }> {
         const { dryRun } = input;
+        const { modifyOrderInterceptors } = this.configService.orderOptions;
+        for (const interceptor of modifyOrderInterceptors) {
+            if (interceptor.willModifyOrder) {
+                const error = await interceptor.willModifyOrder(ctx, order, input);
+                if (error) {
+                    return new ModifyOrderInterceptorError({ interceptorError: error })
+                }
+            }
+        }
         const modification = new OrderModification({
             order,
             note: input.note || '',
@@ -643,6 +652,15 @@ export class OrderModifier {
         }
 
         await this.promotionService.runPromotionSideEffects(ctx, order, activePromotionsPre);
+
+        for (const interceptor of modifyOrderInterceptors) {
+            if (interceptor.hasModifiedOrder) {
+                const error = await interceptor.hasModifiedOrder(ctx, order, input);
+                if (error) {
+                    return new ModifyOrderInterceptorError({ interceptorError: error })
+                }
+            }
+        }
 
         if (dryRun) {
             return { order, modification };

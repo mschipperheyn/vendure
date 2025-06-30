@@ -9,6 +9,7 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 .env
+.envrc
 lerna-debug.log
 dist
 e2e/__data__/*

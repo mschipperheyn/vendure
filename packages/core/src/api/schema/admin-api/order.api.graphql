@@ -450,6 +450,7 @@ union ModifyOrderResult =
     | Order
     | NoChangesSpecifiedError
     | OrderModificationStateError
+    | ModifyOrderInterceptorError
     | PaymentMethodMissingError
     | RefundPaymentIdMissingError
     | OrderLimitError
